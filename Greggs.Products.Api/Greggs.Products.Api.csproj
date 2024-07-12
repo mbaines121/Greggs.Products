@@ -5,8 +5,18 @@
     <LangVersion>10</LangVersion>
   </PropertyGroup>
 
+  <PropertyGroup>
+	<GenerateDocumentationFile>true</GenerateDocumentationFile>
+	<NoWarn>$(NoWarn);1591</NoWarn>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.5.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Greggs.Products.DependencyResolver\Greggs.Products.DependencyResolver.csproj" />
+    <ProjectReference Include="..\Greggs.Products.ViewModels\Greggs.Products.ViewModels.csproj" />
   </ItemGroup>
 
 

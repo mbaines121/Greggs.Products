@@ -1,6 +1,4 @@
-using System.Collections.Generic;
-
-namespace Greggs.Products.Api.DataAccess;
+namespace Greggs.Products.DataAccess;
 
 public interface IDataAccess<out T>
 {

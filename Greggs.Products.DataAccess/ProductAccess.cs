@@ -1,8 +1,6 @@
-using System.Collections.Generic;
-using System.Linq;
-using Greggs.Products.Api.Models;
+using Greggs.Products.Models;
 
-namespace Greggs.Products.Api.DataAccess;
+namespace Greggs.Products.DataAccess;
 
 /// <summary>
 /// DISCLAIMER: This is only here to help enable the purpose of this exercise, this doesn't reflect the way we work!

@@ -1,7 +1,11 @@
+using Greggs.Products.DependencyResolver;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.IO;
+using System.Reflection;
+using System;
 
 namespace Greggs.Products.Api;
 
@@ -10,8 +14,15 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddControllers();
+        services.AddSwaggerGen(c =>
+        {
+            var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+            var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+            c.IncludeXmlComments(xmlPath);
+        });
 
-        services.AddSwaggerGen();
+        services.AddServiceCollection();
+        services.AddDataAccessCollection();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
