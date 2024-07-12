@@ -29,24 +29,26 @@ public class ShouldReturnBadRequestResponse
     }
 
     [Theory]
-    [InlineData(0, 0)]
-    [InlineData(-1, 5)]
-    public void With_valid_response(int pageStart, int pageSize)
+    [InlineData(0, 0, "EUR")]
+    [InlineData(-1, 5, "EUR")]
+    [InlineData(0, 5, "345345")]
+    public void With_valid_response(int pageStart, int pageSize, string foreignCurrencyCode)
     {
         // Act.
-        var response = _sut.Get(pageStart, pageSize);
+        var response = _sut.Get(pageStart, pageSize, foreignCurrencyCode);
 
         // Assert.
         Assert.NotNull(response);
     }
 
     [Theory]
-    [InlineData(0, 0)]
-    [InlineData(-1, 5)]
-    public void With_response_400(int pageStart, int pageSize)
+    [InlineData(0, 0, "EUR")]
+    [InlineData(-1, 5, "EUR")]
+    [InlineData(0, 5, "345345")]
+    public void With_response_400(int pageStart, int pageSize, string foreignCurrencyCode)
     {
         // Act.
-        var response = _sut.Get(pageStart, pageSize);
+        var response = _sut.Get(pageStart, pageSize, foreignCurrencyCode);
 
         // Assert.
         var result = (ObjectResult)response;

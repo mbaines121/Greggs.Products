@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Greggs.Products.Models;
+using System.Text.RegularExpressions;
 using Greggs.Products.Services;
 using Greggs.Products.Shared;
 using Greggs.Products.ViewModels;
@@ -32,7 +34,7 @@ public class ProductController : ControllerBase
     /// <param name="foreignCurrencyCode">Three letter alpha code of the foreign currency. Leave blank if no foreign currency conversion is required.</param>
     /// <returns>Returns a list of ProductViewModel products.</returns>
     /// <response code="200">Returns a list of products. The list may be empty.</response>
-    /// <response code="400">Returns a 400 if the pageStart or pageSize are invalid.</response>
+    /// <response code="400">Returns a 400 if the pageStart, pageSize or foreign currency code are invalid.</response>
     /// <response code="500">Returns a 500 if there was an error returning the products.</response>
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -50,6 +52,12 @@ public class ProductController : ControllerBase
             if (pageSize < 1)
             {
                 return BadRequest("The page size must be at least one item.");
+            }
+
+            var alphaMatch = new Regex(@"^[A-Za-z]{3}$");
+            if (!string.IsNullOrEmpty(foreignCurrencyCode) && !alphaMatch.IsMatch(foreignCurrencyCode))
+            {
+                return BadRequest($"The provided foreign currency '{foreignCurrencyCode}' needs to be a three character alpha currency code.");
             }
 
             var result = _productsService.GetProducts(pageStart, pageSize, foreignCurrencyCode);
